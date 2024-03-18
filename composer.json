@@ -1,0 +1,47 @@
+{
+    "name": "sahilr2050/omnipay-payway",
+    "type": "library",
+    "description": "PayWay REST API gateway for Omnipay payment processing library",
+    "keywords": [
+        "gateway",
+        "merchant",
+        "omnipay",
+        "pay",
+        "payment",
+        "payway",
+        "westpac",
+        "purchase",
+        "token"
+    ],
+    "homepage": "https://github.com/sahilr2050/omnipay-payway",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Sahil Patel",
+            "email": "admin@seecoding.com"
+        }
+    ],
+    "config": {
+        "bin-dir": "bin/",
+        "allow-plugins": {
+            "php-http/discovery": true
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Omnipay\\PaywayRest\\": "src/"
+        }
+    },
+    "require": {
+        "php": "^7.2|^8.0",
+        "omnipay/common": "^3.1",
+        "php-http/discovery": "^1.14",
+        "php-http/guzzle7-adapter": "^1",
+        "symfony/http-client": "^6.4",
+        "php-http/httplug": "^2.4",
+        "nyholm/psr7": "^1.8"
+    },
+    "require-dev": {
+        "omnipay/tests": "^3|^4"
+    }
+}
