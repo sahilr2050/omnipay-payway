@@ -2,12 +2,12 @@
 
 **WestPac PayWay REST API driver for the Omnipay PHP payment processing library**
 
-[![Latest Stable Version](https://poser.pugx.org/rotassator/omnipay-payway-restapi/v/stable)](https://packagist.org/packages/rotassator/omnipay-payway-restapi)
-[![Total Downloads](https://poser.pugx.org/rotassator/omnipay-payway-restapi/downloads)](https://packagist.org/packages/rotassator/omnipay-payway-restapi)
-[![License](https://poser.pugx.org/rotassator/omnipay-payway-restapi/license)](https://packagist.org/packages/rotassator/omnipay-payway-restapi)
+[![Latest Stable Version](https://poser.pugx.org/sahilr2050/omnipay-payway/v/stable)](https://packagist.org/packages/sahilr2050/omnipay-payway)
+[![Total Downloads](https://poser.pugx.org/sahilr2050/omnipay-payway/downloads)](https://packagist.org/packages/sahilr2050/omnipay-payway)
+[![License](https://poser.pugx.org/sahilr2050/omnipay-payway/license)](https://packagist.org/packages/sahilr2050/omnipay-payway)
 
 [Omnipay](https://github.com/thephpleague/omnipay) is a framework agnostic, multi-gateway payment
-processing library for PHP 5.3+. This package implements PayWay REST API support for Omnipay.
+processing library for PHP 8.0+. This package implements PayWay REST API support for Omnipay.
 
 This module aims to implement a usable subset of the [PayWay REST API](https://www.payway.com.au/rest-docs/index.html) (a product of Westpac Bank). The API is extensive, so the initial aim is to implement the following features:
 
@@ -25,7 +25,7 @@ See the [official PayWay documentation](https://www.payway.com.au/rest-docs/inde
 Install the module using composer.
 
 ```
-composer require rotassator/omnipay-payway-restapi
+composer require sahilr2050/omnipay-payway
 ```
 
 ## Usage
@@ -121,11 +121,11 @@ $gateway->setSSLCertificatePath('path/cacert.pem');
 
 Contributions are **welcome** and will be fully **credited**.
 
-Contributions can be made via a pull request on [Github](https://github.com/rotassator/omnipay-payway-restapi).
+Contributions can be made via a pull request on [Github](https://github.com/sahilr2050/omnipay-payway).
 
 ## Support
 
 If you are having general issues with the package, feel free to report it to us.
 
-If you believe you have found a bug, please report it using the [GitHub issue tracker](https://github.com/rotassator/omnipay-payway-restapi/issues),
+If you believe you have found a bug, please report it using the [GitHub issue tracker](https://github.com/sahilr2050/omnipay-payway/issues),
 or better yet, fork the library and submit a pull request.
