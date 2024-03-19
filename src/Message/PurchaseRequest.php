@@ -6,6 +6,8 @@
 
 namespace Omnipay\PaywayRest\Message;
 
+use Omnipay\Common\Exception\InvalidRequestException;
+
 /**
  * PaywayRest Purchase Request
  *
@@ -14,6 +16,9 @@ namespace Omnipay\PaywayRest\Message;
  */
 class PurchaseRequest extends AbstractRequest
 {
+    /**
+     * @throws InvalidRequestException
+     */
     public function getData()
     {
         $this->validate(
@@ -45,17 +50,17 @@ class PurchaseRequest extends AbstractRequest
         return $data;
     }
 
-    public function getEndpoint()
+    public function getEndpoint(): string
     {
         return $this->endpoint . '/transactions';
     }
 
-    public function getHttpMethod()
+    public function getHttpMethod(): string
     {
         return 'POST';
     }
 
-    public function getUseSecretKey()
+    public function getUseSecretKey(): bool
     {
         return true;
     }

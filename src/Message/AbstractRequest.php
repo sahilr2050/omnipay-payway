@@ -2,8 +2,10 @@
 /**
  * PaywayRest Abstract Request.
  */
+
 namespace Omnipay\PaywayRest\Message;
 
+use Omnipay\Common\Message\ResponseInterface;
 use Omnipay\PaywayRest\Helper\Uuid;
 
 /**
@@ -11,7 +13,7 @@ use Omnipay\PaywayRest\Helper\Uuid;
  *
  * This is the parent class for all PayWay requests.
  *
- * @todo Add usage documention, including live and test details
+ * @todo Add usage documentation, including live and test details
  *
  * @see \Omnipay\PaywayRest\Gateway
  * @link https://www.payway.com.au/rest-docs/index.html
@@ -19,40 +21,22 @@ use Omnipay\PaywayRest\Helper\Uuid;
 abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
 {
     /** @var string Endpoint URL */
-    protected $endpoint = 'https://api.payway.com.au/rest/v1';
-
-    /**
-     * Get API publishable key
-     * @return string
-     */
-    public function getApiKeyPublic()
-    {
-        return $this->getParameter('apiKeyPublic');
-    }
+    protected string $endpoint = 'https://api.payway.com.au/rest/v1';
 
     /**
      * Set API publishable key
-     * @param  string $value API publishable key
+     * @param string $value API publishable key
      */
-    public function setApiKeyPublic($value)
+    public function setApiKeyPublic(string $value): AbstractRequest
     {
         return $this->setParameter('apiKeyPublic', $value);
     }
 
     /**
-     * Get API secret key
-     * @return string
-     */
-    public function getApiKeySecret()
-    {
-        return $this->getParameter('apiKeySecret');
-    }
-
-    /**
      * Set API secret key
-     * @param  string $value API secret key
+     * @param string $value API secret key
      */
-    public function setApiKeySecret($value)
+    public function setApiKeySecret(string $value): AbstractRequest
     {
         return $this->setParameter('apiKeySecret', $value);
     }
@@ -61,34 +45,25 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
      * Get Merchant
      * @return string Merchant ID
      */
-    public function getMerchantId()
+    public function getMerchantId(): string
     {
         return $this->getParameter('merchantId');
     }
 
     /**
      * Set Merchant
-     * @param  string $value Merchant ID
+     * @param string $value Merchant ID
      */
-    public function setMerchantId($value)
+    public function setMerchantId(string $value): AbstractRequest
     {
         return $this->setParameter('merchantId', $value);
     }
 
     /**
-     * Get Use Secret Key setting
-     * @return bool Use secret API key if true
-     */
-    public function getUseSecretKey()
-    {
-        return $this->getParameter('useSecretKey');
-    }
-
-    /**
      * Set Use Secret Key setting
-     * @param  string $value Flag to use secret key
+     * @param string $value Flag to use secret key
      */
-    public function setUseSecretKey($value)
+    public function setUseSecretKey(string $value): AbstractRequest
     {
         return $this->setParameter('useSecretKey', $value);
     }
@@ -97,34 +72,25 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
      * Get single-use token
      * @return string Token key
      */
-    public function getSingleUseTokenId()
+    public function getSingleUseTokenId(): string
     {
         return $this->getParameter('singleUseTokenId');
     }
 
     /**
      * Set single-use token
-     * @param  string $value Token Key
+     * @param string $value Token Key
      */
-    public function setSingleUseTokenId($value)
+    public function setSingleUseTokenId(string $value): AbstractRequest
     {
         return $this->setParameter('singleUseTokenId', $value);
     }
 
     /**
-     * Get Idempotency Key
-     * @return string Idempotency Key
-     */
-    public function getIdempotencyKey()
-    {
-        return $this->getParameter('idempotencyKey') ?: Uuid::create();
-    }
-
-    /**
      * Set Idempotency Key
-     * @param  string $value Idempotency Key
+     * @param string $value Idempotency Key
      */
-    public function setIdempotencyKey($value)
+    public function setIdempotencyKey(string $value): AbstractRequest
     {
         return $this->setParameter('idempotencyKey', $value);
     }
@@ -134,19 +100,9 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
         return $this->getParameter('customerNumber');
     }
 
-    public function setCustomerNumber($value)
+    public function setCustomerNumber($value): AbstractRequest
     {
         return $this->setParameter('customerNumber', $value);
-    }
-
-    public function getTransactionType()
-    {
-        return $this->getParameter('transactionType');
-    }
-
-    public function setTransactionType($value)
-    {
-        return $this->setParameter('transactionType', $value);
     }
 
     public function getAmount()
@@ -154,7 +110,7 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
         return $this->getParameter('amount');
     }
 
-    public function setAmount($value)
+    public function setAmount($value): AbstractRequest
     {
         return $this->setParameter('amount', $value);
     }
@@ -164,12 +120,12 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
         return $this->getParameter('principalAmount');
     }
 
-    public function setPrincipalAmount($value)
+    public function setPrincipalAmount($value): AbstractRequest
     {
         return $this->setParameter('principalAmount', $value);
     }
 
-    public function getCurrency()
+    public function getCurrency(): ?string
     {
         // PayWay expects lowercase currency values
         return ($this->getParameter('currency'))
@@ -177,7 +133,7 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
             : null;
     }
 
-    public function setCurrency($value)
+    public function setCurrency($value): AbstractRequest
     {
         return $this->setParameter('currency', $value);
     }
@@ -187,7 +143,7 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
         return $this->getParameter('orderNumber');
     }
 
-    public function setOrderNumber($value)
+    public function setOrderNumber($value): AbstractRequest
     {
         return $this->setParameter('orderNumber', $value);
     }
@@ -197,7 +153,7 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
         return $this->getParameter('bankAccountId');
     }
 
-    public function setBankAccountId($value)
+    public function setBankAccountId($value): AbstractRequest
     {
         return $this->setParameter('bankAccountId', $value);
     }
@@ -207,9 +163,9 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
         return $this->getParameter('bankAccountBsb');
     }
 
-    public function setBankAccountBsb($value)
+    public function setBankAccountBsb($value): AbstractRequest
     {
-       return $this->setParameter('bankAccountBsb', $value);
+        return $this->setParameter('bankAccountBsb', $value);
     }
 
     public function getBankAccountNumber()
@@ -217,7 +173,7 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
         return $this->getParameter('bankAccountNumber');
     }
 
-    public function setBankAccountNumber($value)
+    public function setBankAccountNumber($value): AbstractRequest
     {
         return $this->setParameter('bankAccountNumber', $value);
     }
@@ -227,7 +183,7 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
         return $this->getParameter('bankAccountName');
     }
 
-    public function setBankAccountName($value)
+    public function setBankAccountName($value): AbstractRequest
     {
         return $this->setParameter('bankAccountName', $value);
     }
@@ -237,7 +193,7 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
         return $this->getParameter('customerName');
     }
 
-    public function setCustomerName($value)
+    public function setCustomerName($value): AbstractRequest
     {
         return $this->setParameter('customerName', $value);
     }
@@ -247,7 +203,7 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
         return $this->getParameter('emailAddress');
     }
 
-    public function setEmailAddress($value)
+    public function setEmailAddress($value): AbstractRequest
     {
         return $this->setParameter('emailAddress', $value);
     }
@@ -257,7 +213,7 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
         return $this->getParameter('sendEmailReceipts');
     }
 
-    public function setSendEmailReceipts($value)
+    public function setSendEmailReceipts($value): AbstractRequest
     {
         return $this->setParameter('sendEmailReceipts', $value);
     }
@@ -267,7 +223,7 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
         return $this->getParameter('phoneNumber');
     }
 
-    public function setPhoneNumber($value)
+    public function setPhoneNumber($value): AbstractRequest
     {
         return $this->setParameter('phoneNumber', $value);
     }
@@ -277,7 +233,7 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
         return $this->getParameter('street1');
     }
 
-    public function setStreet1($value)
+    public function setStreet1($value): AbstractRequest
     {
         return $this->setParameter('street1', $value);
     }
@@ -287,7 +243,7 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
         return $this->getParameter('street2');
     }
 
-    public function setStreet2($value)
+    public function setStreet2($value): AbstractRequest
     {
         return $this->setParameter('street2', $value);
     }
@@ -297,7 +253,7 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
         return $this->getParameter('cityName');
     }
 
-    public function setCityName($value)
+    public function setCityName($value): AbstractRequest
     {
         return $this->setParameter('cityName', $value);
     }
@@ -307,7 +263,7 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
         return $this->getParameter('state');
     }
 
-    public function setState($value)
+    public function setState($value): AbstractRequest
     {
         return $this->setParameter('state', $value);
     }
@@ -316,29 +272,10 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
     {
         return $this->getParameter('postalCode');
     }
-    public function setPostalCode($value)
+
+    public function setPostalCode($value): AbstractRequest
     {
         return $this->setParameter('postalCode', $value);
-    }
-
-    public function getTransactionReference()
-    {
-        return $this->getParameter('transactionReference');
-    }
-
-    public function setTransactionReference($value)
-    {
-        return $this->setParameter('transactionReference', $value);
-    }
-
-    public function getTransactionId()
-    {
-        return $this->getParameter('transactionId');
-    }
-
-    public function setTransactionId($value)
-    {
-        return $this->setParameter('transactionId', $value);
     }
 
     public function getFrequency()
@@ -346,7 +283,7 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
         return $this->getParameter('frequency') ?: 'once';
     }
 
-    public function setFrequency($value)
+    public function setFrequency($value): AbstractRequest
     {
         return $this->setParameter('frequency', $value);
     }
@@ -357,7 +294,7 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
         return $this->getParameter('nextPaymentDate') ?: date('j M Y');
     }
 
-    public function setNextPaymentDate($value)
+    public function setNextPaymentDate($value): AbstractRequest
     {
         return $this->setParameter('nextPaymentDate', $value);
     }
@@ -367,7 +304,7 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
         return $this->getParameter('regularPrincipalAmount');
     }
 
-    public function setRegularPrincipalAmount($value)
+    public function setRegularPrincipalAmount($value): AbstractRequest
     {
         return $this->setParameter('regularPrincipalAmount', $value);
     }
@@ -377,7 +314,7 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
         return $this->getParameter('nextPrincipalAmount');
     }
 
-    public function setNextPrincipalAmount($value)
+    public function setNextPrincipalAmount($value): AbstractRequest
     {
         return $this->setParameter('nextPrincipalAmount', $value);
     }
@@ -387,7 +324,7 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
         return $this->getParameter('numberOfPaymentsRemaining');
     }
 
-    public function setNumberOfPaymentsRemaining($value)
+    public function setNumberOfPaymentsRemaining($value): AbstractRequest
     {
         return $this->setParameter('numberOfPaymentsRemaining', $value);
     }
@@ -397,60 +334,22 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
         return $this->getParameter('finalPrincipalAmount');
     }
 
-    public function setFinalPrincipalAmount($value)
+    public function setFinalPrincipalAmount($value): AbstractRequest
     {
         return $this->setParameter('finalPrincipalAmount', $value);
     }
 
-    public function setSSLCertificatePath($value)
+    public function setSSLCertificatePath($value): AbstractRequest
     {
         return $this->setParameter('sslCertificatePath', $value);
-    }
-
-    public function getSSLCertificatePath()
-    {
-        return $this->getParameter('sslCertificatePath');
-    }
-
-    /**
-     * Get HTTP method
-     * @return string HTTP method (GET, PUT, etc)
-     */
-    public function getHttpMethod()
-    {
-        return 'GET';
-    }
-
-    /**
-     * Get request headers
-     * @return array Request headers
-     */
-    public function getRequestHeaders()
-    {
-        // common headers
-        $headers = array(
-            'Accept' => 'application/json',
-        );
-
-        // set content type
-        if ($this->getHttpMethod() !== 'GET') {
-            $headers['Content-Type']    = 'application/x-www-form-urlencoded';
-        }
-
-        // prevent duplicate POSTs
-        if ($this->getHttpMethod() === 'POST') {
-            $headers['Idempotency-Key'] = $this->getIdempotencyKey();
-        }
-
-        return $headers;
     }
 
     /**
      * Send data request
      * @param  [type] $data [description]
-     * @return [type]       [description]
+     * @return ResponseInterface|Response [type]       [description]
      */
-    public function sendData($data)
+    public function sendData($data): ResponseInterface|Response
     {
         // enforce TLS >= v1.2 (https://www.payway.com.au/rest-docs/index.html#basics)
         $config = $this->httpClient->getConfig();
@@ -496,17 +395,101 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
         return $this->response;
     }
 
+    public function getSSLCertificatePath()
+    {
+        return $this->getParameter('sslCertificatePath');
+    }
+
+    /**
+     * Get HTTP method
+     * @return string HTTP method (GET, PUT, etc.)
+     */
+    public function getHttpMethod(): string
+    {
+        return 'GET';
+    }
+
+    /**
+     * Get request headers
+     * @return array Request headers
+     */
+    public function getRequestHeaders(): array
+    {
+        // common headers
+        $headers = array(
+            'Accept' => 'application/json',
+        );
+
+        // set content type
+        if ($this->getHttpMethod() !== 'GET') {
+            $headers['Content-Type'] = 'application/x-www-form-urlencoded';
+        }
+
+        // prevent duplicate POSTs
+        if ($this->getHttpMethod() === 'POST') {
+            $headers['Idempotency-Key'] = $this->getIdempotencyKey();
+        }
+
+        return $headers;
+    }
+
+    /**
+     * Get Idempotency Key
+     * @return string Idempotency Key
+     */
+    public function getIdempotencyKey(): string
+    {
+        return $this->getParameter('idempotencyKey') ?: Uuid::create();
+    }
+
+    /**
+     * Get Use Secret Key setting
+     * @return bool Use secret API key if true
+     */
+    public function getUseSecretKey(): bool
+    {
+        return $this->getParameter('useSecretKey');
+    }
+
+    /**
+     * Get API secret key
+     * @return string
+     */
+    public function getApiKeySecret(): string
+    {
+        return $this->getParameter('apiKeySecret');
+    }
+
+    /**
+     * Get API publishable key
+     * @return string
+     */
+    public function getApiKeyPublic(): string
+    {
+        return $this->getParameter('apiKeyPublic');
+    }
+
+    public function setTransactionType($value): AbstractRequest
+    {
+        return $this->setParameter('transactionType', $value);
+    }
+
+    public function getTransactionType()
+    {
+        return $this->getParameter('transactionType');
+    }
+
     /**
      * Add multiple parameters to data
-     * @param array $data  Data array
-     * @param array $parms Parameters to add to data
+     * @param array $data Data array
+     * @param array $params Parameters to add to data
      */
-    public function addToData(array $data = array(), array $parms = array())
+    public function addToData(array $data = array(), array $params = array()): array
     {
-        foreach ($parms as $parm) {
-            $getter = 'get' . ucfirst($parm);
+        foreach ($params as $param) {
+            $getter = 'get' . ucfirst($param);
             if (method_exists($this, $getter) && $this->$getter()) {
-                $data[$parm] = $this->$getter();
+                $data[$param] = $this->$getter();
             }
         }
 

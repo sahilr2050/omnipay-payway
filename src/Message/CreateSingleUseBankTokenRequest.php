@@ -6,6 +6,8 @@
 
 namespace Omnipay\PaywayRest\Message;
 
+use Omnipay\Common\Exception\InvalidRequestException;
+
 /**
  * PaywayRest Create Single Use Bank Account Token Request
  *
@@ -13,7 +15,10 @@ namespace Omnipay\PaywayRest\Message;
  */
 class CreateSingleUseBankTokenRequest extends AbstractRequest
 {
-    public function getData()
+    /**
+     * @throws InvalidRequestException
+     */
+    public function getData(): array
     {
         $this->validate('bankAccountBsb', 'bankAccountNumber', 'bankAccountName');
 
@@ -26,14 +31,14 @@ class CreateSingleUseBankTokenRequest extends AbstractRequest
     }
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function getEndpoint()
+    public function getEndpoint(): string
     {
         return $this->endpoint . '/single-use-tokens';
     }
 
-    public function getHttpMethod()
+    public function getHttpMethod(): string
     {
         return 'POST';
     }

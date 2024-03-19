@@ -5,6 +5,8 @@
 
 namespace Omnipay\PaywayRest\Message;
 
+use Omnipay\Common\Exception\InvalidRequestException;
+
 /**
  * PaywayRest Transaction Detail Request
  *
@@ -12,7 +14,10 @@ namespace Omnipay\PaywayRest\Message;
  */
 class TransactionDetailRequest extends AbstractRequest
 {
-    public function getData()
+    /**
+     * @throws InvalidRequestException
+     */
+    public function getData(): array
     {
         $this->validate(
             'transactionId'
@@ -21,17 +26,12 @@ class TransactionDetailRequest extends AbstractRequest
         return array();
     }
 
-    public function getEndpoint()
+    public function getEndpoint(): string
     {
         return $this->endpoint . '/transactions/' . $this->getTransactionId();
     }
 
-    public function getHttpMethod()
-    {
-        return 'GET';
-    }
-
-    public function getUseSecretKey()
+    public function getUseSecretKey(): bool
     {
         return true;
     }

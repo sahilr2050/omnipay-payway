@@ -18,7 +18,7 @@ class CreateCustomerRequest extends AbstractRequest
     /**
      * @throws InvalidRequestException
      */
-    public function getData()
+    public function getData(): array
     {
         $this->validate('singleUseTokenId');
 
@@ -44,7 +44,7 @@ class CreateCustomerRequest extends AbstractRequest
         return $data;
     }
 
-    public function getEndpoint()
+    public function getEndpoint(): string
     {
         // check for specified customer reference
         $customerNumber = $this->getCustomerNumber();
@@ -54,12 +54,12 @@ class CreateCustomerRequest extends AbstractRequest
         return $this->endpoint . '/customers' . $ending;
     }
 
-    public function getHttpMethod()
+    public function getHttpMethod(): string
     {
         return $this->getCustomerNumber() ? 'PUT' : 'POST';
     }
 
-    public function getUseSecretKey()
+    public function getUseSecretKey(): bool
     {
         return true;
     }

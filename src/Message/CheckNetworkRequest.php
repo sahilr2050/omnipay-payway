@@ -15,12 +15,12 @@ namespace Omnipay\PaywayRest\Message;
  */
 class CheckNetworkRequest extends AbstractRequest
 {
-    public function getData()
+    public function getData(): array
     {
         return array();
     }
 
-    public function getEndpoint()
+    public function getEndpoint(): string
     {
         return $this->endpoint;
     }

@@ -12,21 +12,21 @@ use Omnipay\PaywayRest\Message\CreateSingleUseCardTokenRequest;
 use Omnipay\PaywayRest\Message\CustomerDetailRequest;
 use Omnipay\PaywayRest\Message\MerchantListRequest;
 use Omnipay\PaywayRest\Message\PurchaseRequest;
+use Omnipay\PaywayRest\Message\RegularPaymentRequest;
 use Omnipay\PaywayRest\Message\TransactionDetailRequest;
 use Omnipay\PaywayRest\Message\UpdateCustomerContactRequest;
-use Omnipay\PaywayRest\Message\RegularPaymentRequest;
 
 /**
  * PayWay Credit Card gateway
  */
 class Gateway extends AbstractGateway
 {
-    public function getName()
+    public function getName(): string
     {
         return 'Westpac PayWay Credit Card';
     }
 
-    public function getDefaultParameters()
+    public function getDefaultParameters(): array
     {
         return array(
             'apiKeyPublic' => '',
@@ -40,7 +40,7 @@ class Gateway extends AbstractGateway
      * Get API publishable key
      * @return string
      */
-    public function getApiKeyPublic()
+    public function getApiKeyPublic(): string
     {
         return $this->getParameter('apiKeyPublic');
     }
@@ -49,7 +49,7 @@ class Gateway extends AbstractGateway
      * Set API publishable key
      * @param string $value API publishable key
      */
-    public function setApiKeyPublic($value)
+    public function setApiKeyPublic(string $value): Gateway
     {
         return $this->setParameter('apiKeyPublic', $value);
     }
@@ -58,7 +58,7 @@ class Gateway extends AbstractGateway
      * Get API secret key
      * @return string
      */
-    public function getApiKeySecret()
+    public function getApiKeySecret(): string
     {
         return $this->getParameter('apiKeySecret');
     }
@@ -67,7 +67,7 @@ class Gateway extends AbstractGateway
      * Set API secret key
      * @param string $value API secret key
      */
-    public function setApiKeySecret($value)
+    public function setApiKeySecret(string $value): Gateway
     {
         return $this->setParameter('apiKeySecret', $value);
     }
@@ -76,7 +76,7 @@ class Gateway extends AbstractGateway
      * Get Merchant
      * @return string Merchant ID
      */
-    public function getMerchantId()
+    public function getMerchantId(): string
     {
         return $this->getParameter('merchantId');
     }
@@ -85,7 +85,7 @@ class Gateway extends AbstractGateway
      * Set Merchant
      * @param string $value Merchant ID
      */
-    public function setMerchantId($value)
+    public function setMerchantId(string $value): Gateway
     {
         return $this->setParameter('merchantId', $value);
     }
@@ -94,7 +94,7 @@ class Gateway extends AbstractGateway
      * Set SSL Certificate Path
      * @param string $value SSL Certificate Path
      */
-    public function setSSLCertificatePath($value)
+    public function setSSLCertificatePath(string $value): Gateway
     {
         return $this->setParameter('sslCertificatePath', $value);
     }
@@ -103,7 +103,7 @@ class Gateway extends AbstractGateway
      * Get SSL Certificate Path
      * @return string SSL Certificate Path
      */
-    public function getSSLCertificatePath()
+    public function getSSLCertificatePath(): string
     {
         return $this->getParameter('sslCertificatePath');
     }
@@ -113,7 +113,7 @@ class Gateway extends AbstractGateway
      * @param array $parameters Request parameters
      * @return AbstractRequest
      */
-    public function testGateway(array $parameters = array())
+    public function testGateway(array $parameters = array()): AbstractRequest
     {
         return $this->createRequest(
             CheckNetworkRequest::class,
@@ -127,7 +127,7 @@ class Gateway extends AbstractGateway
      * @param array $options
      * @return AbstractRequest
      */
-    public function purchase(array $options = array())
+    public function purchase(array $options = array()): AbstractRequest
     {
         /** @todo create customer before payment if none supplied */
 
@@ -146,7 +146,7 @@ class Gateway extends AbstractGateway
      * @param array $parameters
      * @return AbstractRequest
      */
-    public function createSingleUseCardToken(array $parameters = array())
+    public function createSingleUseCardToken(array $parameters = array()): AbstractRequest
     {
         return $this->createRequest(CreateSingleUseCardTokenRequest::class, $parameters);
     }
@@ -157,7 +157,7 @@ class Gateway extends AbstractGateway
      * @param array $parameters
      * @return AbstractRequest
      */
-    public function createSingleUseBankToken(array $parameters = array())
+    public function createSingleUseBankToken(array $parameters = array()): AbstractRequest
     {
         return $this->createRequest(CreateSingleUseBankTokenRequest::class, $parameters);
     }
@@ -168,7 +168,7 @@ class Gateway extends AbstractGateway
      * @param array $parameters
      * @return AbstractRequest
      */
-    public function createCustomer(array $parameters = array())
+    public function createCustomer(array $parameters = array()): AbstractRequest
     {
         return $this->createRequest(CreateCustomerRequest::class, $parameters);
     }
@@ -179,7 +179,7 @@ class Gateway extends AbstractGateway
      * @param array $parameters
      * @return AbstractRequest
      */
-    public function updateCustomerContact(array $parameters = array())
+    public function updateCustomerContact(array $parameters = array()): AbstractRequest
     {
         return $this->createRequest(UpdateCustomerContactRequest::class, $parameters);
     }
@@ -189,7 +189,7 @@ class Gateway extends AbstractGateway
      * @param array $parameters
      * @return AbstractRequest
      */
-    public function getCustomerDetails(array $parameters = array())
+    public function getCustomerDetails(array $parameters = array()): AbstractRequest
     {
         return $this->createRequest(CustomerDetailRequest::class, $parameters);
 
@@ -200,7 +200,7 @@ class Gateway extends AbstractGateway
      * @param array $parameters
      * @return AbstractRequest
      */
-    public function getTransactionDetails(array $parameters = array())
+    public function getTransactionDetails(array $parameters = array()): AbstractRequest
     {
         return $this->createRequest(TransactionDetailRequest::class, $parameters);
 
@@ -211,7 +211,7 @@ class Gateway extends AbstractGateway
      * @param array $parameters
      * @return AbstractRequest
      */
-    public function getMerchants(array $parameters = array())
+    public function getMerchants(array $parameters = array()): AbstractRequest
     {
         return $this->createRequest(MerchantListRequest::class, $parameters);
     }
@@ -221,7 +221,7 @@ class Gateway extends AbstractGateway
      * @param array $parameters
      * @return AbstractRequest
      */
-    public function getBankAccounts(array $parameters = array())
+    public function getBankAccounts(array $parameters = array()): AbstractRequest
     {
         return $this->createRequest(BankAccountListRequest::class, $parameters);
     }

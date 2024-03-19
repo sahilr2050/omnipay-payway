@@ -15,28 +15,28 @@ use Omnipay\Common\Message\AbstractResponse;
  */
 class Response extends AbstractResponse
 {
-    /** @var string Request ID */
-    protected $requestId = null;
-    /** @var string HTTP response code */
-    protected $httpResponseCode = null;
-    /** @var string Transaction type */
-    protected $transactionType = null;
+    /** @var string|null Request ID */
+    protected ?string $requestId = null;
+    /** @var string|null HTTP response code */
+    protected ?string $httpResponseCode = null;
+    /** @var string|null Transaction type */
+    protected ?string $transactionType = null;
 
     /**
      * Get Transaction ID
-     * @return string|null
+     * @return array|string|null
      */
-    public function getTransactionId()
+    public function getTransactionId(): array|string|null
     {
         return $this->getData('transactionId');
     }
 
     /**
      * Get response data, optionally by key
-     * @param string $key Data array key
-     * @return string|array      Response data item or all data if no key specified
+     * @param null $key Data array key
+     * @return array|string|null Response data item or all data if no key specified
      */
-    public function getData($key = null)
+    public function getData($key = null): array|string|null
     {
         if ($key) {
             return $this->data[$key] ?? null;
@@ -46,27 +46,27 @@ class Response extends AbstractResponse
 
     /**
      * Get Transaction reference
-     * @return string Payway transaction reference
+     * @return array|string|null Payway transaction reference
      */
-    public function getTransactionReference()
+    public function getTransactionReference(): array|string|null
     {
         return $this->getData('receiptNumber');
     }
 
     /**
      * Get Customer Number
-     * @return string|null
+     * @return array|string|null
      */
-    public function getCustomerNumber()
+    public function getCustomerNumber(): array|string|null
     {
         return $this->getData('customerNumber');
     }
 
     /**
      * Get Contact details
-     * @return array Customer contact
+     * @return array|string|null Customer contact
      */
-    public function getContact()
+    public function getContact(): array|string|null
     {
         return $this->getData('contact');
     }
@@ -75,7 +75,7 @@ class Response extends AbstractResponse
      * Get error message from the response
      * @return string|null Error message or null if successful
      */
-    public function getMessage()
+    public function getMessage(): ?string
     {
         if ($this->getErrorMessage()) {
             return $this->getErrorMessage() . ' (' . $this->getErrorFieldName() . ')';
@@ -90,19 +90,19 @@ class Response extends AbstractResponse
 
     /**
      * Get error message from the response
-     * @return string|null Error message or null if successful
+     * @return array|string|null Error message or null if successful
      */
-    public function getErrorMessage()
+    public function getErrorMessage(): array|string|null
     {
         return $this->getErrorData('message');
     }
 
     /**
      * Get error data from response
-     * @param string $key Optional data key
-     * @return string|array      Response error item or all data if no key
+     * @param null $key Optional data key
+     * @return array|string|null Response error item or all data if no key
      */
-    public function getErrorData($key = null)
+    public function getErrorData($key = null): array|string|null
     {
         if ($this->isSuccessful()) {
             return null;
@@ -119,7 +119,7 @@ class Response extends AbstractResponse
      * Is the transaction successful?
      * @return boolean True if successful
      */
-    public function isSuccessful()
+    public function isSuccessful(): bool
     {
         // get response code
         $code = $this->getHttpResponseCode();
@@ -144,9 +144,9 @@ class Response extends AbstractResponse
 
     /**
      * Get HTTP Response Code
-     * @return string
+     * @return string|null
      */
-    public function getHttpResponseCode()
+    public function getHttpResponseCode(): ?string
     {
         return $this->httpResponseCode;
     }
@@ -155,16 +155,16 @@ class Response extends AbstractResponse
      * Set HTTP Response Code
      * @parm string Response Code
      */
-    public function setHttpResponseCode($value)
+    public function setHttpResponseCode($value): void
     {
         $this->httpResponseCode = $value;
     }
 
     /**
      * Get transaction type
-     * @return string|null Transaction type
+     * @return array|string|null Transaction type
      */
-    public function getTransactionType()
+    public function getTransactionType(): array|string|null
     {
         return $this->getData('transactionType');
     }
@@ -173,7 +173,7 @@ class Response extends AbstractResponse
      * Set Transaction Type
      * @return string|null Transaction type
      */
-    public function setTransactionType($value)
+    public function setTransactionType($value): ?string
     {
         return $this->transactionType = $value;
     }
@@ -182,7 +182,7 @@ class Response extends AbstractResponse
      * Is the transaction approved?
      * @return boolean True if approved
      */
-    public function isApproved()
+    public function isApproved(): bool
     {
         return in_array($this->getStatus(), array(
             'approved',
@@ -192,9 +192,9 @@ class Response extends AbstractResponse
 
     /**
      * Get status
-     * @return array Returned status
+     * @return array|string|null Returned status
      */
-    public function getStatus()
+    public function getStatus(): array|string|null
     {
         return $this->getData('status');
     }
@@ -203,7 +203,7 @@ class Response extends AbstractResponse
      * Is the transaction pending?
      * @return boolean True if pending
      */
-    public function isPending()
+    public function isPending(): bool
     {
         return (
             $this->getTransactionType() === 'payment'
@@ -213,9 +213,9 @@ class Response extends AbstractResponse
 
     /**
      * Get field name in error from the response
-     * @return string|null Error message or null if successful
+     * @return array|string|null Error message or null if successful
      */
-    public function getErrorFieldName()
+    public function getErrorFieldName(): array|string|null
     {
         return $this->getErrorData('fieldName');
     }
@@ -224,7 +224,7 @@ class Response extends AbstractResponse
      * Get code
      * @return string|null Error message or null if successful
      */
-    public function getCode()
+    public function getCode(): ?string
     {
         return implode(' ', array(
             $this->getResponseCode(),
@@ -236,27 +236,27 @@ class Response extends AbstractResponse
 
     /**
      * Get Payway Response Code
-     * @return string Returned response code
+     * @return array|string|null Returned response code
      */
-    public function getResponseCode()
+    public function getResponseCode(): array|string|null
     {
         return $this->getData('responseCode');
     }
 
     /**
      * Get Payway Response Text
-     * @return string Returned response Text
+     * @return array|string|null Returned response Text
      */
-    public function getResponseText()
+    public function getResponseText(): array|string|null
     {
         return $this->getData('responseText');
     }
 
     /**
      * Get HTTP Response code text
-     * @return string
+     * @return string|null
      */
-    public function getHttpResponseCodeText()
+    public function getHttpResponseCodeText(): ?string
     {
         $code = $this->getHttpResponseCode();
         $statusTexts = \Symfony\Component\HttpFoundation\Response::$statusTexts;
@@ -266,53 +266,53 @@ class Response extends AbstractResponse
 
     /**
      * Get field value in error from the response
-     * @return string|null Error message or null if successful
+     * @return array|string|null Error message or null if successful
      */
-    public function getErrorFieldValue()
+    public function getErrorFieldValue(): array|string|null
     {
         return $this->getErrorData('fieldValue');
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getRequestId()
+    public function getRequestId(): ?string
     {
         return $this->requestId;
     }
 
     /**
      * Set request id
-     * @return AbstractRequest provides a fluent interface.
+     * @return void provides a fluent interface.
      */
-    public function setRequestId($requestId)
+    public function setRequestId($requestId): void
     {
         $this->requestId = $requestId;
     }
 
     /**
      * Get payment method
-     * @return string|null Payment method
+     * @return array|string|null Payment method
      */
-    public function getPaymentMethod()
+    public function getPaymentMethod(): array|string|null
     {
         return $this->getData('paymentMethod');
     }
 
     /**
      * Get credit card information
-     * @return string|null Transaction credit card details
+     * @return array|string|null Transaction credit card details
      */
-    public function getCreditCard()
+    public function getCreditCard(): array|string|null
     {
         return $this->getData('creditCard');
     }
 
     /**
      * Get bank account information
-     * @return string|null Transaction bank account details
+     * @return array|string|null Transaction bank account details
      */
-    public function getBankAccount()
+    public function getBankAccount(): array|string|null
     {
         return $this->getData('bankAccount');
     }

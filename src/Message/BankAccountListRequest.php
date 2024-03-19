@@ -12,22 +12,17 @@ namespace Omnipay\PaywayRest\Message;
  */
 class BankAccountListRequest extends AbstractRequest
 {
-    public function getData()
+    public function getData(): array
     {
         return array();
     }
 
-    public function getEndpoint()
+    public function getEndpoint(): string
     {
         return $this->endpoint . '/your-bank-accounts';
     }
 
-    public function getHttpMethod()
-    {
-        return 'GET';
-    }
-
-    public function getUseSecretKey()
+    public function getUseSecretKey(): bool
     {
         return true;
     }

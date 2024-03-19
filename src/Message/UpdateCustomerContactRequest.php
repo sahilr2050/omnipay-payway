@@ -5,6 +5,8 @@
 
 namespace Omnipay\PaywayRest\Message;
 
+use Omnipay\Common\Exception\InvalidRequestException;
+
 /**
  * PaywayRest Update Customer Contact Request
  *
@@ -12,13 +14,16 @@ namespace Omnipay\PaywayRest\Message;
  */
 class UpdateCustomerContactRequest extends AbstractRequest
 {
+    /**
+     * @throws InvalidRequestException
+     */
     public function getData()
     {
         $this->validate(
             'customerNumber'
         );
 
-        $data = $this->addToData(array(), array(
+        return $this->addToData(array(), array(
             'customerName',
             'emailAddress',
             'sendEmailReceipts',
@@ -29,21 +34,19 @@ class UpdateCustomerContactRequest extends AbstractRequest
             'state',
             'postalCode',
         ));
-
-        return $data;
     }
 
-    public function getEndpoint()
+    public function getEndpoint(): string
     {
         return $this->endpoint . '/customers/' . $this->getCustomerNumber() . '/contact';
     }
 
-    public function getHttpMethod()
+    public function getHttpMethod(): string
     {
         return 'PUT';
     }
 
-    public function getUseSecretKey()
+    public function getUseSecretKey(): bool
     {
         return true;
     }
