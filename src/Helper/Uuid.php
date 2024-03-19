@@ -1,12 +1,22 @@
 <?php
 /** Uuid Helper class */
+
 namespace Omnipay\PaywayRest\Helper;
 
 /**
-*
-*/
+ *
+ */
 abstract class Uuid
 {
+
+    /**
+     * Create a UUID v4 string enclosed by braces
+     * @return string UUID v4 string with braces
+     */
+    public static function createEnclosed()
+    {
+        return '{' . self::create() . '}';
+    }
 
     /**
      * Create UUID v4 string
@@ -24,9 +34,9 @@ abstract class Uuid
         }
 
         // generate UUID
-        mt_srand((double) microtime() * 10000); // optional for php 4.2.0 and up.
-        $charid = strtoupper(md5(uniqid(rand(), true)));
-        $uuid = join('-', array(
+        mt_srand((double)microtime() * 10000); // optional for php 4.2.0 and up.
+        $charid = strtoupper(md5(uniqid(mt_rand(), true)));
+        $uuid = implode('-', array(
             substr($charid, 0, 8),
             substr($charid, 8, 4),
             substr($charid, 12, 4),
@@ -35,14 +45,5 @@ abstract class Uuid
         ));
 
         return $uuid;
-    }
-
-    /**
-     * Create a UUID v4 string enclosed by braces
-     * @return string UUID v4 string with braces
-     */
-    public static function createEnclosed()
-    {
-        return '{' . self::create() . '}';
     }
 }

@@ -3,6 +3,7 @@
 /**
  * PaywayRest Create Single Use Card Token Request
  */
+
 namespace Omnipay\PaywayRest\Message;
 
 /**

@@ -2,6 +2,7 @@
 /**
  * PaywayRest Transaction Detail Request
  */
+
 namespace Omnipay\PaywayRest\Message;
 
 /**
@@ -17,7 +18,7 @@ class TransactionDetailRequest extends AbstractRequest
             'transactionId'
         );
 
-        return $data = array();
+        return array();
     }
 
     public function getEndpoint()

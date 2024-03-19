@@ -3,6 +3,7 @@
 /**
  * PaywayRest Regular Payment Request
  */
+
 namespace Omnipay\PaywayRest\Message;
 
 /**
@@ -21,8 +22,8 @@ class RegularPaymentRequest extends AbstractRequest
         );
 
         $data = array(
-            'frequency'              => $this->getFrequency(),
-            'nextPaymentDate'        => $this->getNextPaymentDate(),
+            'frequency' => $this->getFrequency(),
+            'nextPaymentDate' => $this->getNextPaymentDate(),
             'regularPrincipalAmount' => $this->getRegularPrincipalAmount(),
         );
 

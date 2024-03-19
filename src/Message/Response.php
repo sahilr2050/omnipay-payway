@@ -2,6 +2,7 @@
 /**
  * PayWayRest Response
  */
+
 namespace Omnipay\PaywayRest\Message;
 
 use Omnipay\Common\Message\AbstractResponse;
@@ -22,63 +23,25 @@ class Response extends AbstractResponse
     protected $transactionType = null;
 
     /**
-     * Is the transaction successful?
-     * @return boolean True if successful
-     */
-    public function isSuccessful()
-    {
-        // get response code
-        $code = $this->getHttpResponseCode();
-
-        if ($code === 200) {  // OK
-            return true;
-        }
-
-        if ($code === 201) {   // Created
-            if ($this->getTransactionType() === 'payment') {
-                return $this->isApproved();
-            }
-            return true;
-        }
-
-        if ($code === 202 && $this->isPending()) {   // Accepted
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
-     * Is the transaction approved?
-     * @return boolean True if approved
-     */
-    public function isApproved()
-    {
-        return in_array($this->getStatus(), array(
-            'approved',
-            'approved*',
-        ));
-    }
-
-    /**
-     * Is the transaction pending?
-     * @return boolean True if pending
-     */
-    public function isPending()
-    {
-        return (
-            $this->getTransactionType() === 'payment'
-            && $this->getStatus() === 'pending'
-        );
-    }
-
-    /**
      * Get Transaction ID
      * @return string|null
      */
     public function getTransactionId()
     {
         return $this->getData('transactionId');
+    }
+
+    /**
+     * Get response data, optionally by key
+     * @param string $key Data array key
+     * @return string|array      Response data item or all data if no key specified
+     */
+    public function getData($key = null)
+    {
+        if ($key) {
+            return $this->data[$key] ?? null;
+        }
+        return $this->data;
     }
 
     /**
@@ -109,46 +72,6 @@ class Response extends AbstractResponse
     }
 
     /**
-     * Get status
-     * @return array Returned status
-     */
-    public function getStatus()
-    {
-        return $this->getData('status');
-    }
-
-    /**
-     * Get response data, optionally by key
-     * @param  string       $key Data array key
-     * @return string|array      Response data item or all data if no key specified
-     */
-    public function getData($key = null)
-    {
-        if ($key) {
-            return isset($this->data[$key]) ? $this->data[$key] : null;
-        }
-        return $this->data;
-    }
-
-    /**
-     * Get error data from response
-     * @param  string       $key Optional data key
-     * @return string|array      Response error item or all data if no key
-     */
-    public function getErrorData($key = null)
-    {
-        if ($this->isSuccessful()) {
-            return null;
-        }
-        // get error data (array in data)
-        $data = isset($this->getData('data')[0]) ? $this->getData('data')[0] : null;
-        if ($key) {
-            return isset($data[$key]) ? $data[$key] : null;
-        }
-        return $data;
-    }
-
-    /**
      * Get error message from the response
      * @return string|null Error message or null if successful
      */
@@ -166,20 +89,6 @@ class Response extends AbstractResponse
     }
 
     /**
-     * Get code
-     * @return string|null Error message or null if successful
-     */
-    public function getCode()
-    {
-        return join(' ', array(
-            $this->getResponseCode(),
-            $this->getResponseText(),
-            '(' . $this->getHttpResponseCode(),
-            $this->getHttpResponseCodeText() . ')',
-        ));
-    }
-
-    /**
      * Get error message from the response
      * @return string|null Error message or null if successful
      */
@@ -189,56 +98,48 @@ class Response extends AbstractResponse
     }
 
     /**
-     * Get field name in error from the response
-     * @return string|null Error message or null if successful
+     * Get error data from response
+     * @param string $key Optional data key
+     * @return string|array      Response error item or all data if no key
      */
-    public function getErrorFieldName()
+    public function getErrorData($key = null)
     {
-        return $this->getErrorData('fieldName');
+        if ($this->isSuccessful()) {
+            return null;
+        }
+        // get error data (array in data)
+        $data = $this->getData('data')[0] ?? null;
+        if ($key) {
+            return $data[$key] ?? null;
+        }
+        return $data;
     }
 
     /**
-     * Get field value in error from the response
-     * @return string|null Error message or null if successful
+     * Is the transaction successful?
+     * @return boolean True if successful
      */
-    public function getErrorFieldValue()
+    public function isSuccessful()
     {
-        return $this->getErrorData('fieldValue');
-    }
+        // get response code
+        $code = $this->getHttpResponseCode();
 
-    /**
-     * Get Payway Response Code
-     * @return string Returned response code
-     */
-    public function getResponseCode()
-    {
-        return $this->getData('responseCode');
-    }
+        if ($code === 200) {  // OK
+            return true;
+        }
 
-    /**
-     * Get Payway Response Text
-     * @return string Returned response Text
-     */
-    public function getResponseText()
-    {
-        return $this->getData('responseText');
-    }
+        if ($code === 201) {   // Created
+            if ($this->getTransactionType() === 'payment') {
+                return $this->isApproved();
+            }
+            return true;
+        }
 
-    /**
-     * @return string
-     */
-    public function getRequestId()
-    {
-        return $this->requestId;
-    }
+        if ($code === 202 && $this->isPending()) {   // Accepted
+            return true;
+        }
 
-    /**
-     * Set request id
-     * @return AbstractRequest provides a fluent interface.
-     */
-    public function setRequestId($requestId)
-    {
-        $this->requestId = $requestId;
+        return false;
     }
 
     /**
@@ -260,6 +161,98 @@ class Response extends AbstractResponse
     }
 
     /**
+     * Get transaction type
+     * @return string|null Transaction type
+     */
+    public function getTransactionType()
+    {
+        return $this->getData('transactionType');
+    }
+
+    /**
+     * Set Transaction Type
+     * @return string|null Transaction type
+     */
+    public function setTransactionType($value)
+    {
+        return $this->transactionType = $value;
+    }
+
+    /**
+     * Is the transaction approved?
+     * @return boolean True if approved
+     */
+    public function isApproved()
+    {
+        return in_array($this->getStatus(), array(
+            'approved',
+            'approved*',
+        ));
+    }
+
+    /**
+     * Get status
+     * @return array Returned status
+     */
+    public function getStatus()
+    {
+        return $this->getData('status');
+    }
+
+    /**
+     * Is the transaction pending?
+     * @return boolean True if pending
+     */
+    public function isPending()
+    {
+        return (
+            $this->getTransactionType() === 'payment'
+            && $this->getStatus() === 'pending'
+        );
+    }
+
+    /**
+     * Get field name in error from the response
+     * @return string|null Error message or null if successful
+     */
+    public function getErrorFieldName()
+    {
+        return $this->getErrorData('fieldName');
+    }
+
+    /**
+     * Get code
+     * @return string|null Error message or null if successful
+     */
+    public function getCode()
+    {
+        return implode(' ', array(
+            $this->getResponseCode(),
+            $this->getResponseText(),
+            '(' . $this->getHttpResponseCode(),
+            $this->getHttpResponseCodeText() . ')',
+        ));
+    }
+
+    /**
+     * Get Payway Response Code
+     * @return string Returned response code
+     */
+    public function getResponseCode()
+    {
+        return $this->getData('responseCode');
+    }
+
+    /**
+     * Get Payway Response Text
+     * @return string Returned response Text
+     */
+    public function getResponseText()
+    {
+        return $this->getData('responseText');
+    }
+
+    /**
      * Get HTTP Response code text
      * @return string
      */
@@ -268,16 +261,33 @@ class Response extends AbstractResponse
         $code = $this->getHttpResponseCode();
         $statusTexts = \Symfony\Component\HttpFoundation\Response::$statusTexts;
 
-        return (isset($statusTexts[$code])) ? $statusTexts[$code] : null;
+        return $statusTexts[$code] ?? null;
     }
 
     /**
-     * Get transaction type
-     * @return string|null Transaction type
+     * Get field value in error from the response
+     * @return string|null Error message or null if successful
      */
-    public function getTransactionType()
+    public function getErrorFieldValue()
     {
-        return $this->getData('transactionType');
+        return $this->getErrorData('fieldValue');
+    }
+
+    /**
+     * @return string
+     */
+    public function getRequestId()
+    {
+        return $this->requestId;
+    }
+
+    /**
+     * Set request id
+     * @return AbstractRequest provides a fluent interface.
+     */
+    public function setRequestId($requestId)
+    {
+        $this->requestId = $requestId;
     }
 
     /**
@@ -305,14 +315,5 @@ class Response extends AbstractResponse
     public function getBankAccount()
     {
         return $this->getData('bankAccount');
-    }
-
-    /**
-     * Set Transaction Type
-     * @return string|null Transaction type
-     */
-    public function setTransactionType($value)
-    {
-        return $this->transactionType = $value;
     }
 }

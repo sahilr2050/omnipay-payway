@@ -3,6 +3,7 @@
 /**
  * PaywayRest check network
  */
+
 namespace Omnipay\PaywayRest\Message;
 
 /**

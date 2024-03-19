@@ -2,6 +2,7 @@
 /**
  * PaywayRest Transaction Detail Request
  */
+
 namespace Omnipay\PaywayRest\Message;
 
 /**
@@ -13,7 +14,7 @@ class MerchantListRequest extends AbstractRequest
 {
     public function getData()
     {
-        return $data = array();
+        return array();
     }
 
     public function getEndpoint()

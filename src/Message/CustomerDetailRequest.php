@@ -2,6 +2,7 @@
 /**
  * PaywayRest Customer Detail Request
  */
+
 namespace Omnipay\PaywayRest\Message;
 
 /**
@@ -17,7 +18,7 @@ class CustomerDetailRequest extends AbstractRequest
             'customerNumber'
         );
 
-        return $data = array();
+        return array();
     }
 
     public function getEndpoint()

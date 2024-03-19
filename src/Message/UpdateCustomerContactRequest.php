@@ -2,6 +2,7 @@
 /**
  * PaywayRest Update Customer Contact Request
  */
+
 namespace Omnipay\PaywayRest\Message;
 
 /**

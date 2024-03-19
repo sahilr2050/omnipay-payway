@@ -3,6 +3,7 @@
 /**
  * PaywayRest Purchase Request
  */
+
 namespace Omnipay\PaywayRest\Message;
 
 /**
@@ -22,10 +23,10 @@ class PurchaseRequest extends AbstractRequest
         );
 
         $data = array(
-            'customerNumber'  => $this->getCustomerNumber(),
+            'customerNumber' => $this->getCustomerNumber(),
             'transactionType' => 'payment',
             'principalAmount' => $this->getPrincipalAmount(),
-            'currency'        => $this->getCurrency(),
+            'currency' => $this->getCurrency(),
         );
 
         if ($this->getOrderNumber()) {
@@ -37,7 +38,7 @@ class PurchaseRequest extends AbstractRequest
         if ($this->getBankAccountId()) {
             $data['bankAccountId'] = $this->getBankAccountId();
         }
-        if ($this->getSingleUseTokenId()){
+        if ($this->getSingleUseTokenId()) {
             $data['singleUseTokenId'] = $this->getSingleUseTokenId();
         }
 
